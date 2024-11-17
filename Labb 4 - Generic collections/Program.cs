@@ -11,6 +11,7 @@
             restaurantSut24.AddToMenu(new MenuItem(2, "Veg Kobe-biff ", 200m));
             restaurantSut24.AddToMenu(new MenuItem(3, "Matsutakesvamp-risotto", 1100m));
             restaurantSut24.AddToMenu(new MenuItem(4, "Flugsvamp-risotto", 100m));
+            Console.WriteLine("----------------------------------------------------");
             Console.ReadKey();
             restaurantSut24.ShowMenu();
             Console.WriteLine("----------------------------------------------------");
@@ -35,12 +36,19 @@
             restaurantSut24.ShowOrderCount();
 
             //7.Visa nästa order på kö.
+            restaurantSut24.ShowNextOrder();
+
             //8.Hantera en order.
+            restaurantSut24.HandleOrder();
+
             //9.Visa antalet ordrar i kön.
             restaurantSut24.ShowOrderCount();
 
             //10.Lägg till en ny order.
-            List<MenuItem> order4 = new List<MenuItem> { new MenuItem(1, "Wagyu Kobe-biff", 1200m), new MenuItem(4, "Flugsvamp-risotto", 100m) };
+            List<MenuItem> order4 = new List<MenuItem> { 
+                new MenuItem(1, "Wagyu Kobe-biff", 1200m), 
+                new MenuItem(4, "Flugsvamp-risotto", 100m) 
+            };
             restaurantSut24.CreateOrder(new Order(order4, 4));
 
             //11.Visa antalet ordrar i kön.
@@ -60,8 +68,10 @@
             restaurantSut24.HandleOrder();
 
             //16.Visa antalet ordrar i kön.
+            restaurantSut24.ShowNextOrder();
 
             Console.WriteLine("Den som beställde flugsvamp-risotto bör åka till sjukhuset");
+            Console.ReadKey();
         }
     }
     public class MenuItem 
@@ -99,9 +109,10 @@
             _orderItems = orderItems;
             _tableNumber = tableNumber;
         }
-        public void WriteOutOrder() 
-        { 
-        
+        public override string ToString()
+        {
+            var items = string.Join(", ", _orderItems);
+            return $"Order {_orderId} för bord {_tableNumber}: {items}";
         }
     }
     public class Restaurant
@@ -138,21 +149,29 @@
         }
         public void ShowOrder() 
         {
-            Console.WriteLine("Order");
+            Console.WriteLine("Väntande ordrar");
             foreach(var cQueue in customerQueue) 
             {
                 Console.WriteLine(cQueue);
             }
         }
         public void ShowNextOrder() 
-        { 
-            var nextOrder = customerQueue.Peek();
-            Console.WriteLine($" { nextOrder } förbereds ");
+        {
+            if (customerQueue.Count > 0)
+            {
+                var nextOrder = customerQueue.Peek();
+                Console.WriteLine($" {nextOrder} förbereds ");
+
+            }
+            else 
+            {
+                Console.WriteLine("Finns inga mer beställningar");
+            }
         }
 
         public void ShowOrderCount() 
         {
-            Console.WriteLine($"Beställningar i kö: { customerQueue }");
+            Console.WriteLine($"Beställningar i kö: { customerQueue.Count }");
         }
     }
 }
