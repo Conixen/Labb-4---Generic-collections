@@ -8,32 +8,57 @@
             Console.WriteLine("----------------------------------------------------");
             Restaurant restaurantSut24 = new Restaurant();
             restaurantSut24.AddToMenu(new MenuItem(1, "Wagyu Kobe-biff", 1200m));
-            restaurantSut24.AddToMenu(new MenuItem(2, "Veg-Wagyubiff ", 200m));
+            restaurantSut24.AddToMenu(new MenuItem(2, "Veg Kobe-biff ", 200m));
             restaurantSut24.AddToMenu(new MenuItem(3, "Matsutakesvamp-risotto", 1100m));
             restaurantSut24.AddToMenu(new MenuItem(4, "Flugsvamp-risotto", 100m));
-
+            Console.ReadKey();
             restaurantSut24.ShowMenu();
             Console.WriteLine("----------------------------------------------------");
 
             List<MenuItem> order1 = new List<MenuItem> { new MenuItem(1, "Wagyu Kobe-biff", 1200m), new MenuItem(3, "Matsutakesvamp-risotto", 1100m) };
             List<MenuItem> order2 = new List<MenuItem> { new MenuItem(3, "Matsutakesvamp-risotto", 1100m), new MenuItem(2, "Veg-Wagyubiff ", 200m) };
             List<MenuItem> order3 = new List<MenuItem> { new MenuItem(4, "Flugsvamp-risotto", 100m), new MenuItem(2, "Veg-Wagyubiff ", 200m) };
+            Console.ReadKey();
 
             restaurantSut24.CreateOrder(new Order(order1, 1));
+            Console.ReadKey();
             restaurantSut24.CreateOrder(new Order(order2, 2));
+            Console.ReadKey();
             restaurantSut24.CreateOrder(new Order(order3, 3));
+            Console.ReadKey();
 
             //5.Visa alla aktuella ordrar.
+            restaurantSut24.ShowOrder();
+            Console.ReadKey();
+
             //6.Visa antalet ordrar i kön.
+            restaurantSut24.ShowOrderCount();
+
             //7.Visa nästa order på kö.
             //8.Hantera en order.
             //9.Visa antalet ordrar i kön.
+            restaurantSut24.ShowOrderCount();
+
             //10.Lägg till en ny order.
+            List<MenuItem> order4 = new List<MenuItem> { new MenuItem(1, "Wagyu Kobe-biff", 1200m), new MenuItem(4, "Flugsvamp-risotto", 100m) };
+            restaurantSut24.CreateOrder(new Order(order4, 4));
+
             //11.Visa antalet ordrar i kön.
+            restaurantSut24.ShowOrderCount();
+
             //12.Hantera två ordrar.
+            restaurantSut24.HandleOrder();
+            restaurantSut24.HandleOrder();
+
             //13.Visa antalet ordrar i kön.
+            restaurantSut24.ShowOrderCount();
+
             //14.Visa nästa order på kö.
+            restaurantSut24.ShowNextOrder();
+
             //15.Hantera en order.
+            restaurantSut24.HandleOrder();
+
             //16.Visa antalet ordrar i kön.
 
             Console.WriteLine("Den som beställde flugsvamp-risotto bör åka till sjukhuset");
@@ -103,22 +128,31 @@
             customerQueue.Enqueue(order);
             Console.WriteLine($"Beställningen är lagd för { order }");
         }
-        public void HandleOrder() 
-        { 
-        
+        public void HandleOrder()
+        {
+            if (customerQueue.Count > 0) 
+            {
+                var handlingOrder = customerQueue.Dequeue();
+                Console.WriteLine($"Beställning { handlingOrder } är klar");
+            }
         }
         public void ShowOrder() 
         {
-            
+            Console.WriteLine("Order");
+            foreach(var cQueue in customerQueue) 
+            {
+                Console.WriteLine(cQueue);
+            }
         }
         public void ShowNextOrder() 
         { 
-        
+            var nextOrder = customerQueue.Peek();
+            Console.WriteLine($" { nextOrder } förbereds ");
         }
 
         public void ShowOrderCount() 
-        { 
-        
+        {
+            Console.WriteLine($"Beställningar i kö: { customerQueue }");
         }
     }
 }
