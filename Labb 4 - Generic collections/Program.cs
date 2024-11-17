@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World! Och välkommen till resturanté de SUT24");
+            Console.WriteLine("");
             Console.WriteLine("----------------------------------------------------");
             Restaurant restaurantSut24 = new Restaurant();
             restaurantSut24.AddToMenu(new MenuItem(1, "Wagyu Kobe-biff", 1200m));
@@ -13,6 +14,7 @@
             restaurantSut24.AddToMenu(new MenuItem(4, "Flugsvamp-risotto", 100m));
             Console.WriteLine("----------------------------------------------------");
             Console.ReadKey();
+
             restaurantSut24.ShowMenu();
             Console.WriteLine("----------------------------------------------------");
 
@@ -27,50 +29,49 @@
             Console.ReadKey();
             restaurantSut24.CreateOrder(new Order(order3, 3));
             Console.ReadKey();
-
             //5.Visa alla aktuella ordrar.
             restaurantSut24.ShowOrder();
             Console.ReadKey();
-
             //6.Visa antalet ordrar i kön.
             restaurantSut24.ShowOrderCount();
-
+            Console.ReadKey();
             //7.Visa nästa order på kö.
             restaurantSut24.ShowNextOrder();
-
+            Console.ReadKey();
             //8.Hantera en order.
             restaurantSut24.HandleOrder();
-
+            Console.ReadKey();
             //9.Visa antalet ordrar i kön.
             restaurantSut24.ShowOrderCount();
-
+            Console.ReadKey();
             //10.Lägg till en ny order.
             List<MenuItem> order4 = new List<MenuItem> { 
                 new MenuItem(1, "Wagyu Kobe-biff", 1200m), 
                 new MenuItem(4, "Flugsvamp-risotto", 100m) 
             };
             restaurantSut24.CreateOrder(new Order(order4, 4));
-
+            Console.ReadKey();
             //11.Visa antalet ordrar i kön.
             restaurantSut24.ShowOrderCount();
-
+            Console.ReadKey();
             //12.Hantera två ordrar.
             restaurantSut24.HandleOrder();
+            Console.ReadKey();
             restaurantSut24.HandleOrder();
-
+            Console.ReadKey();
             //13.Visa antalet ordrar i kön.
             restaurantSut24.ShowOrderCount();
-
+            Console.ReadKey();
             //14.Visa nästa order på kö.
             restaurantSut24.ShowNextOrder();
-
+            Console.ReadKey();
             //15.Hantera en order.
             restaurantSut24.HandleOrder();
-
+            Console.ReadKey();
             //16.Visa antalet ordrar i kön.
             restaurantSut24.ShowNextOrder();
-
-            Console.WriteLine("Den som beställde flugsvamp-risotto bör åka till sjukhuset");
+            Console.ReadKey();
+            Console.WriteLine("\nDen som beställde flugsvamp-risotto bör åka till sjukhuset...");
             Console.ReadKey();
         }
     }
@@ -80,14 +81,12 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-
         public MenuItem(int id, string name, decimal price)
         {
             Id = id;
             Name = name;
             Price = price;
         }
-
         public override string ToString()
         {
             return $"{Name} - {Price:C}";
@@ -121,7 +120,7 @@
         public Queue<Order> customerQueue = new Queue<Order>();
 
         public void AddToMenu(MenuItem menuItem) 
-        { 
+        {
             menu.Add(menuItem);
             Console.WriteLine($"Matträtten { menuItem } är nu i menyn");
         }
@@ -141,6 +140,7 @@
         }
         public void HandleOrder()
         {
+            Console.WriteLine("");
             if (customerQueue.Count > 0) 
             {
                 var handlingOrder = customerQueue.Dequeue();
@@ -149,6 +149,7 @@
         }
         public void ShowOrder() 
         {
+            Console.WriteLine("");
             Console.WriteLine("Väntande ordrar");
             foreach(var cQueue in customerQueue) 
             {
@@ -157,11 +158,11 @@
         }
         public void ShowNextOrder() 
         {
+            Console.WriteLine("");
             if (customerQueue.Count > 0)
             {
                 var nextOrder = customerQueue.Peek();
-                Console.WriteLine($" {nextOrder} förbereds ");
-
+                Console.WriteLine($"{nextOrder} förbereds ");
             }
             else 
             {
@@ -171,6 +172,7 @@
 
         public void ShowOrderCount() 
         {
+            Console.WriteLine("");
             Console.WriteLine($"Beställningar i kö: { customerQueue.Count }");
         }
     }
